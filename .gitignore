@@ -128,3 +128,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#IntelliJ
+.idea
+*.iml
+gen
+
+#dir
+build
