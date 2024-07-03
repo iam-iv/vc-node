@@ -1,18 +1,21 @@
 {
   "name": "vc-node",
+  "type": "module",
   "version": "0.1.0",
   "description": "Volunteer Calendar on NodeJS",
   "main": "index.js",
   "scripts": {
     "build": "npm-run-all lint format test clean && tsc",
-    "dev": "ts-node src",
-    "dev:watch": "nodemon src -e ts,json --exec 'npm run dev",
+    "dev": "dotenvx run -- tsx src",
+    "dev:watch": "nodemon src -e ts,json --exec 'npm run dev'",
     "clean": "rimraf ./build",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint src",
     "format": "npx prettier --write src",
-    "format:check": "npx prettier --check src"
+    "format:check": "npx prettier --check src",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate"
   },
   "author": "",
   "lice nse": "ISC",
@@ -23,6 +26,7 @@
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
+    "drizzle-kit": "^0.22.8",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "jest": "^29.7.0",
@@ -32,10 +36,13 @@
     "rimraf": "^5.0.7",
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.5",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.16.0",
     "typescript": "^5.5.3"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "@dotenvx/dotenvx": "^1.5.0",
+    "drizzle-orm": "^0.31.2",
+    "express": "^4.19.2",
+    "postgres": "^3.4.4"
   }
 }
