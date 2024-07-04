@@ -1,9 +1,9 @@
 export enum SYSTEM_ROLE {
-  GUEST,
-  VOLUNTEER,
-  TEAM_LEAD,
-  PASTOR,
-  ADMIN,
+  GUEST = "GUEST",
+  VOLUNTEER = "VOLUNTEER",
+  TEAM_LEAD = "TEAM_LEAD",
+  PASTOR = "PASTOR",
+  ADMIN = "ADMIN",
 }
 
 export enum EVENT_ROLE {
