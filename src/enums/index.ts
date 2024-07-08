@@ -1,28 +1,5 @@
-export enum SYSTEM_ROLE {
-  GUEST = "GUEST",
-  VOLUNTEER = "VOLUNTEER",
-  TEAM_LEAD = "TEAM_LEAD",
-  PASTOR = "PASTOR",
-  ADMIN = "ADMIN",
-}
+import { SYSTEM_ROLE, EVENT_ROLE } from "./Roles";
+import { EVENT_TYPE, SERVICE_TYPE } from "./EventType";
+import HTTP_STATUS_CODE from "./HttpsStatusCode";
 
-export enum EVENT_ROLE {
-  ORGANIZER,
-  TRANSITION,
-  PREACHER,
-  PROTOCOL,
-  SERVICE_PRAYER,
-  HAPPYLAND,
-}
-
-export enum EVENT_TYPE {
-  SERVICE,
-  LET_IT_SMILE,
-}
-
-export enum SERVICE_TYPE {
-  SUNDAY_SERVICE,
-  SPECIAL_SERVICE,
-  SCHOOLTURA,
-  COMUNA13,
-}
+export { SYSTEM_ROLE, EVENT_ROLE, EVENT_TYPE, SERVICE_TYPE, HTTP_STATUS_CODE };

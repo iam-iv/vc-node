@@ -1,13 +1,13 @@
 import { SYSTEM_ROLE } from "../enums";
 
 export interface User {
-  id?: number;
+  id?: string;
   email: string;
-  phoneNumber?: string;
+  phoneNumber?: string | null;
   firstName: string;
   lastName: string;
-  birthday?: Date;
+  birthday?: Date | null;
   isUserActive?: boolean;
   passwordHash: string;
-  roles: SYSTEM_ROLE[];
+  roles: keyof typeof SYSTEM_ROLE;
 }

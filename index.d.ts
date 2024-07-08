@@ -1,3 +1,4 @@
+import { UserLoginResponseDto } from "./src/dtos/user.dto";
 import { User } from "./src/models/user";
 
 export interface IRepository<T> {
@@ -8,13 +9,14 @@ export interface IRepository<T> {
   fetchAll(): T[];
 }
 
-export interface IAuthRepository<T> {
-  login(entity: T): Promise<T>;
-  signUp(entity: T): Promise<number>;
+export interface IAuthRepository {
+  signUp(user: User): Promise<string>;
+  userExists(email: string): Promise<boolean>;
+  getUser(email: string): Promise<UserLoginResponseDto>;
 }
 
 export type ServiceResponse<T> = {
-  data: T;
+  data: T | null;
   success: boolean;
   message: string;
 };

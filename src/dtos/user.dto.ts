@@ -6,11 +6,12 @@ export interface UserSignUpRequestDto {
   firstName: string;
   lastName: string;
 }
-export interface UserSignUpResponsetDto {
-  id: number;
-}
 
 export interface UserLoginRequestDto {
   email: string;
   password: string;
+}
+
+export interface UserLoginResponseDto extends Omit<User, "birthday" | "email"> {
+  birthday?: string | null;
 }

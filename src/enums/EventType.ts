@@ -1,0 +1,11 @@
+export enum EVENT_TYPE {
+  SERVICE,
+  LET_IT_SMILE,
+}
+
+export enum SERVICE_TYPE {
+  SUNDAY_SERVICE,
+  SPECIAL_SERVICE,
+  SCHOOLTURA,
+  COMUNA13,
+}

@@ -2,6 +2,7 @@ import { ServiceResponse } from "../../index";
 import { User } from "../models/user";
 import { authRepository } from "../data/authRepository";
 import bcrypt from "bcrypt";
+import { UserLoginResponseDto } from "../dtos/user.dto";
 
 const SALT_ROUNDS = 10;
 
@@ -10,28 +11,40 @@ const hashPassword = async (password: string): Promise<string> => {
 };
 
 const isValidCredentials = (email: string, password: string): boolean => {
-  return !email && !password;
+  return Boolean(email) && Boolean(password);
 };
 
 const userExists = async (email: string): Promise<boolean> => {
   return authRepository.userExists(email);
 };
+const getUser = async (email: string): Promise<UserLoginResponseDto> => {
+  return authRepository.getUser(email);
+};
+const checkPassword = async (
+  password: string,
+  passwordHash: string,
+): Promise<boolean> => {
+  return await bcrypt.compare(password, passwordHash);
+};
 
 export const authService = {
-  signUp: async (newUser: User): Promise<ServiceResponse<number>> => {
-    const response: ServiceResponse<number> = {
+  signUp: async (newUser: User): Promise<ServiceResponse<string>> => {
+    const response: ServiceResponse<string> = {
       success: false,
       message: "",
-      data: 0,
+      data: null,
     };
     try {
       if (!isValidCredentials(newUser.email, newUser.passwordHash)) {
-        response.success = false;
+        response.message = "Invalid Credentials";
+        return response;
+      } else if (!newUser.firstName) {
+        response.message = "Invalid User Name";
         return response;
       }
       if (await userExists(newUser.email)) {
-        response.success = false;
         response.message = "User Already Exists";
+        return response;
       }
       newUser.passwordHash = await hashPassword(newUser.passwordHash);
 
@@ -44,7 +57,37 @@ export const authService = {
       return {
         success: false,
         message: "Error Storing User",
-        data: 0,
+        data: null,
+      };
+    }
+  },
+  login: async (
+    email: string,
+    password: string,
+  ): Promise<ServiceResponse<UserLoginResponseDto>> => {
+    try {
+      const response: ServiceResponse<UserLoginResponseDto> = {
+        success: false,
+        message: "",
+        data: null,
+      };
+      const userData = await getUser(email);
+      if (!userData.id) {
+        response.message = "User does not exist";
+        return response;
+      }
+      if (!(await checkPassword(password, userData.passwordHash))) {
+        response.message = "Wrong Password";
+        return response;
+      }
+      response.success = true;
+      response.data = userData;
+      return response;
+    } catch (error) {
+      return {
+        success: false,
+        message: "Error Logging In User",
+        data: null,
       };
     }
   },
